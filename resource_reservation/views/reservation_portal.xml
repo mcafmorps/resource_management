@@ -1,0 +1,181 @@
+<?xml version="1.0" encoding="utf-8"?>
+<odoo>
+    <record id="reserve_reservation_form" model="website.menu">
+        <field name="name">Book Reservation</field>
+        <field name="url">/reserve/new_resource</field>
+        <field name="parent_id" ref="website.main_menu"/>
+        <field name="sequence">11</field>
+    </record>
+    <template id="new_reservation_form" name="New Resource Reservation Form">
+        <t t-call="website.layout">
+            <script>
+                document.addEventListener('DOMContentLoaded', function () {
+                function toggleRepeatUntil() {
+                var repeatSelect = document.getElementById('repeat');
+                var repeatUntilDiv = document.getElementById('repeat_until_div');
+                // Check if the selected value is 'weekly'
+                if (repeatSelect.value === 'weekly') {
+                repeatUntilDiv.style.display = 'block';
+                } else {
+                repeatUntilDiv.style.display = 'none';
+                }
+                }
+
+                var repeatSelect = document.getElementById('repeat');
+                repeatSelect.addEventListener('change', toggleRepeatUntil);
+
+                toggleRepeatUntil();
+                });
+            </script>
+            <style>
+                .res-container {
+                max-width: 800px;
+                margin: auto;
+                padding: 20px;
+                border-radius: 8px;
+                background: #f9f9f9;
+                box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
+                }
+                .res-head {
+                margin-top: 25px;
+                margin-left: 20px;
+                }
+                .res-image {
+                background-image: url("/resource_reservation/static/description/icon.png");
+                background-size: cover;
+                height: 300px;
+                width: 300px;
+                margin-left: -20px;
+                }
+                .res-title h1 {
+                text-align: center;
+                color: #333;
+                margin-bottom: 20px;
+                }
+                .res-form-group {
+                margin-bottom: 15px;
+                }
+                .res-label {
+                display: block;
+                margin-bottom: 5px;
+                font-size: 16px;
+                color: #666;
+                }
+                .res-input, .res-select, .res-textarea {
+                width: 100%;
+                padding: 8px;
+                border: 1px solid #ccc;
+                border-radius: 4px;
+                box-sizing: border-box;
+                }
+                .res-button {
+                color: #fff;
+                background-color: #007bff;
+                border-color: #007bff;
+                padding: 10px 24px;
+                border-radius: 4px;
+                cursor: pointer;
+                display: inline-block;
+                text-align: center;
+                }
+                .res-button:hover {
+                background-color: #0056b3;
+                border-color: #004085;
+                }
+                .res-link {
+                color: #ed8115;
+                }
+                .res-success {
+                font-size: 20px;
+                color: white;
+                text-align: center;
+                background-color: #ed8115;
+                height: 75px;
+                padding: 15px;
+                margin-bottom: 10px;
+                }
+            </style>
+            <div class="container mt8 mb8 res-container">
+                <div class="res-head">
+                    <div class="res-image"></div>
+                </div>
+                <div class="res-body">
+                    <h1 class="res-title">Make a New Reservation</h1>
+                    <form action="/reserve/new_resource/submit" method="post" class="form-horizontal">
+                        <input type="hidden" name="csrf_token" t-att-value="request.csrf_token()"/>
+                        <div class="form-group res-form-group">
+                            <label class="res-label" for="title">Reservation Title:</label>
+                            <input type="text" class="form-control res-input" id="title" name="title"
+                                   required="required"/>
+                        </div>
+                        <div class="form-group res-form-group">
+                            <label class="res-label" for="resource_name">Resource:</label>
+                            <select class="form-control res-select" id="resource_name" name="resource_name"
+                                    required="required">
+                                <t t-foreach="request.env['resource'].sudo().search([])" t-as="r">
+                                    <option t-att-value="r.id">
+                                        <t t-esc="r.name"/>
+                                    </option>
+                                </t>
+                            </select>
+                        </div>
+                        <div class="form-group res-form-group">
+                            <label class="res-label" for="resource_type">Resource Type:</label>
+                            <select class="form-control res-select" id="resource_type" name="resource_type"
+                                    required="required">
+                                <t t-foreach="request.env['resource.type'].sudo().search([])" t-as="rt">
+                                    <option t-att-value="rt.id">
+                                        <t t-esc="rt.name"/>
+                                    </option>
+                                </t>
+                            </select>
+                        </div>
+                        <div class="form-group res-form-group">
+                            <label class="res-label" for="start_datetime">Start Date &amp; Time:</label>
+                            <input type="datetime-local" class="form-control res-input" id="start_datetime"
+                                   name="start_datetime" required="required"/>
+                        </div>
+                        <div class="form-group res-form-group">
+                            <label class="res-label" for="end_datetime">End Date &amp; Time:</label>
+                            <input type="datetime-local" class="form-control res-input" id="end_datetime"
+                                   name="end_datetime" required="required"/>
+                        </div>
+                        <div class="form-group res-form-group">
+                            <label class="res-label" for="reservation_tag_id">Reservation Tags:</label>
+                            <select class="form-control res-select" id="reservation_tag_id" name="reservation_tag_id"
+                                    multiple="multiple">
+                                <t t-foreach="tags" t-as="tag">
+                                    <option t-att-value="tag.id">
+                                        <t t-esc="tag.name"/>
+                                    </option>
+                                </t>
+                            </select>
+                        </div>
+                        <div class="form-group res-form-group">
+                            <label class="res-label" for="resource_description">Description:</label>
+                            <textarea class="form-control res-textarea" id="resource_description"
+                                      name="resource_description" required="required"></textarea>
+                        </div>
+                        <div class="form-group res-form-group">
+                            <label class="res-label" for="repeat">Repeat:</label>
+                            <select class="form-control res-select" id="repeat" name="repeat" required="required">
+                                <option value="once">Once</option>
+                                <option value="weekly">Every Week</option>
+                            </select>
+                        </div>
+
+                        <div class="form-group res-form-group" id="repeat_until_div">
+                            <label class="res-label" for="repeat_until">Repeat Until:</label>
+                            <input type="datetime-local" class="form-control res-input" id="repeat_until"
+                                   name="repeat_until"/>
+                        </div>
+                        <div class="text-center">
+                            <input type="submit" class="btn btn-primary res-button" value="Reserve"/>
+                        </div>
+                    </form>
+                </div>
+            </div>
+        </t>
+    </template>
+</odoo>
+

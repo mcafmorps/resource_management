@@ -1,0 +1,53 @@
+<?xml version="1.0" encoding="utf-8"?>
+<odoo>
+    <menuitem id="menu_root"
+              name="Resource Reservation "
+              sequence="1"/>
+
+    <menuitem id="menu_resource_reservation"
+              name="Resource Reservation"
+              parent="menu_root"
+              sequence="1"/>
+
+    <menuitem id="resource_reservation"
+              name="Resource Reservation"
+              parent="menu_resource_reservation"
+              action="action_resource_reservation_act_window"/>
+
+    <menuitem id="menu_resource_configurations"
+              name="Configurations"
+              parent="menu_root"
+              sequence="5"
+              groups="group_resource_reservation_admin"/>
+
+    <menuitem id="resource_availability_by_all"
+              name="Resource Availability"
+              parent="menu_resource_reservation"
+              action="action_resource_availability"/>
+
+    <menuitem id="resource_reservation_pivot"
+              name="Reports"
+              parent="menu_resource_reservation"
+              action="action_resource_reservation_act_pivot_window"
+              groups="group_resource_reservation_approver"/>
+
+    <menuitem id="menu_reservation_tag"
+              name="Reservation Tags"
+              parent="menu_resource_configurations"
+              action="action_resource_reservation_tag_act_window"/>
+
+    <menuitem id="menu_resource_type"
+              name="Resource Type"
+              parent="menu_resource_configurations"
+              action="action_resource_type_act_window"/>
+
+    <menuitem id="menu_resource"
+              name="Resource"
+              parent="menu_resource_configurations"
+              action="action_resource_act_window"/>
+
+    <menuitem id="menu_resource_tag"
+              name="Resource Tags"
+              parent="menu_resource_configurations"
+              action="action_resource_tag_act_window"/>
+</odoo>

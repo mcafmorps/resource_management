@@ -1,0 +1,45 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+
+<odoo>
+
+    <record id="access_resource_tag_admin" model="ir.model.access">
+        <field name="name">Access Resource Tag Admin</field>
+        <field name="model_id" ref="model_resource_tag"/>
+        <field name="group_id" ref="group_resource_reservation_admin"/>
+        <field name="perm_read" eval="True"/>
+        <field name="perm_write" eval="True"/>
+        <field name="perm_create" eval="True"/>
+        <field name="perm_unlink" eval="True"/>
+    </record>
+
+    <record id="access_resource_type_admin" model="ir.model.access">
+        <field name="name">Access Resource Type Admin</field>
+        <field name="model_id" ref="model_resource_type"/>
+        <field name="group_id" ref="group_resource_reservation_admin"/>
+        <field name="perm_read" eval="True"/>
+        <field name="perm_write" eval="True"/>
+        <field name="perm_create" eval="True"/>
+        <field name="perm_unlink" eval="True"/>
+    </record>
+
+    <record id="access_resource_reservation_tag_admin" model="ir.model.access">
+        <field name="name">Access Resource reservation_tag Admin</field>
+        <field name="model_id" ref="model_resource_reservation_tag"/>
+        <field name="group_id" ref="group_resource_reservation_admin"/>
+        <field name="perm_read" eval="True"/>
+        <field name="perm_write" eval="True"/>
+        <field name="perm_create" eval="True"/>
+        <field name="perm_unlink" eval="True"/>
+    </record>
+
+    <record id="access_resource_admin" model="ir.model.access">
+        <field name="name">Access Resource Admin</field>
+        <field name="model_id" ref="model_resource"/>
+        <field name="group_id" ref="group_resource_reservation_admin"/>
+        <field name="perm_read" eval="True"/>
+        <field name="perm_write" eval="True"/>
+        <field name="perm_create" eval="True"/>
+        <field name="perm_unlink" eval="True"/>
+    </record>
+
+</odoo>

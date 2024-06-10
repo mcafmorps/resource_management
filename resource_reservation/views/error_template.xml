@@ -1,0 +1,15 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<odoo>
+    <template id="error_template" name="Reservation Error">
+        <t t-call="website.layout">
+            <div id="wrap">
+                <div class="container mt8 mb8">
+                    <h1>Oops! Something went wrong.</h1>
+                    <p><t t-esc="error"/></p>
+                    <a href="/reserve/new_resource" class="btn btn-primary mt4">Go Back to Form</a>
+                </div>
+            </div>
+        </t>
+    </template>
+</odoo>
+

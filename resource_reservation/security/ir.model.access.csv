@@ -1,0 +1,15 @@
+"id","name","model_id:id","group_id:id","perm_read","perm_write","perm_create","perm_unlink"
+access_resource_reservation,access_resource_reservation,model_resource_reservation,base.group_user,0,0,0,0
+access_resource_reservation_user,access_resource_reservation,model_resource_reservation,group_resource_reservation_user,1,1,1,0
+access_resource_reservation_approver,access_resource_reservation,model_resource_reservation,group_resource_reservation_approver,1,1,1,1
+access_resource,access_resource,model_resource,base.group_user,0,0,0,0
+access_resource_user,access_resource,model_resource,group_resource_reservation_user,1,0,0,0
+access_resource_reservation_tag,access_resource_reservation_tag,model_resource_reservation_tag,base.group_user,0,0,0,0
+access_resource_reservation_tag_user,access_resource_reservation_tag,model_resource_reservation_tag,group_resource_reservation_user,1,0,0,0
+access_resource_availability,access_resource_availability,model_resource_availability,base.group_user,0,0,0,0
+access_resource_availability_user,access_resource_availability,model_resource_availability,group_resource_reservation_user,1,1,1,0
+access_resource_availability_approver,access_resource_availability,model_resource_availability,group_resource_reservation_approver,1,1,1,1
+access_resource_type,access_resource_type,model_resource_type,base.group_user,0,0,0,0
+access_resource_type_user,access_resource_type,model_resource_type,group_resource_reservation_user,1,0,0,0
+access_resource_tag,access_resource_tag,model_resource_tag,base.group_user,0,0,0,0
+access_resource_tag_user,access_resource_tag,model_resource_tag,group_resource_reservation_user,1,0,0,0

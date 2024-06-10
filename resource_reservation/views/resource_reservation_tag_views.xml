@@ -1,0 +1,42 @@
+<?xml version="1.0" encoding="utf-8"?>
+
+<odoo>
+    <record id="view_resource_reservation_tag_form"
+            model="ir.ui.view">
+        <field name="name">resource.reservation.tag.form</field>
+        <field name="model">resource.reservation.tag</field>
+        <field name="arch" type="xml">
+            <form create="false">
+                <sheet>
+                    <group>
+                        <field name="name"/>
+                        <field name="description"/>
+                        <field name="color_reservation_tag" widget="color_picker"/>
+                    </group>
+                </sheet>
+            </form>
+        </field>
+    </record>
+
+    <record id="view_resource_reservation_tag_tree"
+            model="ir.ui.view">
+        <field name="name">resource.reservation.tag.tree</field>
+        <field name="model">resource.reservation.tag</field>
+        <field name="arch" type="xml">
+            <tree name="Reservation Tags" editable="top">
+                <field name="name"/>
+                <field name="description"/>
+                <field name="color_reservation_tag" widget="color_picker"/>
+            </tree>
+        </field>
+    </record>
+
+    <record id="action_resource_reservation_tag_act_window"
+            model="ir.actions.act_window">
+        <field name="name">Resource Reservation Tag</field>
+        <field name="res_model">resource.reservation.tag</field>
+        <field name="view_mode">tree,form</field>
+        <field name="context"> {'no_breadcrumbs': True}</field>
+    </record>
+</odoo>
+

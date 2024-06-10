@@ -1,0 +1,23 @@
+<?xml version="1.0" encoding="utf-8"?>
+
+<odoo>
+        <record id="test_email_template" model="mail.template">
+            <field name="name">Resource Reservation</field>
+            <field name="model_id" ref="resource_reservation.model_resource_reservation"/>
+            <field name="email_from">{{ (object.env.user.login) }}</field>
+            <field name="email_to">{{ (object.created_by_email) }}</field>
+            <field name="subject">Resource Reservation:</field>
+            <field name="auto_delete" eval="True"/>
+            <field name="body_html" type="html">
+                <div style="margin: 0px; padding: 0px;">
+                    <p> Dear <t t-out="object.name or ''"/>,</p>
+                    <p>The reservation is <strong><t t-out="object.booking_status"/></strong> on <strong><t t-out="object.write_date"/></strong></p>
+                    <br/>
+                    Best Regards,
+                    <br/>
+                    <t t-out="user.name"/>
+                    <br/>
+                </div>
+            </field>
+        </record>
+</odoo>
