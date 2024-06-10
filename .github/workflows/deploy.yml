@@ -44,11 +44,15 @@ jobs:
 
       - name: (Dry Run) Clean up old files
         uses: appleboy/ssh-action@v1.0.3
+        env:
+          ODOO1_ADDONS_DIR: ${{ vars.ODOO1_ADDONS_DIR }}
+          ADDON_NAME: ${{ vars.ADDON_NAME }}
         with:
           host: ${{ secrets.SSH_HOST }}
           port: ${{ secrets.SSH_PORT }}
           username: ${{ secrets.SSH_USERNAME }}
           key: ${{ secrets.SSH_KEY }}
+          envs: ODOO1_ADDONS_DIR,ADDON_NAME
           script: |
             echo "rm -rf $ODOO1_ADDONS_DIR/$ADDON_NAME"
 
@@ -60,15 +64,20 @@ jobs:
       - name: (Dry Run) Deploy with rsync into /tmp
         shell: bash
         run: |
-          echo "rsync -avz -e 'ssh -p $SSH_PORT' ./$ADDON_NAME/ ${{ secrets.SSH_USERNAME }}@${{ secrets.SSH_HOST }}:/tmp/$ADDON_NAME.$UUID"
+          echo "rsync -avz -e 'ssh -p ${{ secrets.SSH_PORT }}' ./$ADDON_NAME/ ${{ secrets.SSH_USERNAME }}@${{ secrets.SSH_HOST }}:/tmp/$ADDON_NAME.$UUID"
 
       - name: (Dry Run) Copy to Odoo Addons Directory
         uses: appleboy/ssh-action@v1.0.3
+        env:
+          ODOO1_ADDONS_DIR: ${{ vars.ODOO1_ADDONS_DIR }}
+          ADDON_NAME: ${{ vars.ADDON_NAME }}
+          UUID: ${{ env.UUID }}
         with:
           host: ${{ secrets.SSH_HOST }}
           port: ${{ secrets.SSH_PORT }}
           username: ${{ secrets.SSH_USERNAME }}
           key: ${{ secrets.SSH_KEY }}
+          envs: ODOO1_ADDONS_DIR,ADDON_NAME,UUID
           script: |
             ADDON_DIR=$ODOO1_ADDONS_DIR/$ADDON_NAME
             echo "mkdir -p $ADDON_DIR"
