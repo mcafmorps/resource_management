@@ -23,7 +23,7 @@ jobs:
       - name: Install SSH Key
         uses: shimataro/ssh-key-action@v2
         with:
-          key: ${{ secrets.SSH_SSH_KEY }}
+          key: ${{ secrets.SSH_KEY }}
           known_hosts: "just-a-placeholder-so-we-dont-get-errors"
 
       - name: Adding Known Hosts
@@ -68,7 +68,7 @@ jobs:
           host: ${{ secrets.SSH_HOST }}
           port: ${{ secrets.SSH_PORT }}
           username: ${{ secrets.SSH_USERNAME }}
-          key: ${{ secrets.SSH_SSH_KEY }}
+          key: ${{ secrets.SSH_KEY }}
           script: |
             ADDON_DIR=$ODOO1_ADDONS_DIR/$ADDON_NAME
             echo "mkdir -p $ADDON_DIR"
