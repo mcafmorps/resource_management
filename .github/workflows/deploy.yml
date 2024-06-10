@@ -54,6 +54,17 @@ jobs:
           key: ${{ secrets.SSH_KEY }}
           envs: ODOO1_ADDONS_DIR,ADDON_NAME
           script: |
+            if [[ ! "$ODOO1_ADDONS_DIR" =~ ^[a-zA-Z0-9_./-]+$ ]]; then
+                echo "Invalid path: $ODOO1_ADDONS_DIR. Path must not contain '..' or start with '/'."
+                exit 1
+            fi
+
+            if [[ "$ODOO1_ADDONS_DIR" == "/" ]] || [[ "$ODOO1_ADDONS_DIR" == *"/.."* ]]; then
+                echo "Invalid path: $ODOO1_ADDONS_DIR. Path must not be the root directory or traverse upwards."
+                exit 1
+            fi
+
+            echo "Uncomment the following lines to enable the cleanup"
             echo "rm -rf $ODOO1_ADDONS_DIR/$ADDON_NAME"
 
       - name: Generate unique dir name
@@ -61,10 +72,10 @@ jobs:
           uuid=$(uuidgen)
           echo "UUID=$uuid" >> $GITHUB_ENV
 
-      - name: (Dry Run) Deploy with rsync into /tmp
+      - name: Deploy with rsync into /tmp
         shell: bash
         run: |
-          echo "rsync -avz -e 'ssh -p ${{ secrets.SSH_PORT }}' ./$ADDON_NAME/ ${{ secrets.SSH_USERNAME }}@${{ secrets.SSH_HOST }}:/tmp/$ADDON_NAME.$UUID"
+          rsync -avz -e 'ssh -p ${{ secrets.SSH_PORT }}' ./$ADDON_NAME/ ${{ secrets.SSH_USERNAME }}@${{ secrets.SSH_HOST }}:/tmp/$ADDON_NAME.$UUID
 
       - name: (Dry Run) Copy to Odoo Addons Directory
         uses: appleboy/ssh-action@v1.0.3
