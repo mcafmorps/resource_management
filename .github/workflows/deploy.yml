@@ -75,7 +75,7 @@ jobs:
       - name: Deploy with rsync into /tmp
         shell: bash
         run: |
-          rsync -avz -e 'ssh -p ${{ secrets.SSH_PORT }}' ./$ADDON_NAME/ ${{ secrets.SSH_USERNAME }}@${{ secrets.SSH_HOST }}:/tmp/$ADDON_NAME.$UUID
+          rsync -avz --owner=${{ secrets.SSH_USERNAME }} --group=${{ secrets.SSH_USERNAME }} -e 'ssh -p ${{ secrets.SSH_PORT }}' ./$ADDON_NAME/ ${{ secrets.SSH_USERNAME }}@${{ secrets.SSH_HOST }}:/tmp/$ADDON_NAME.$UUID
 
       - name: (Dry Run) Copy to Odoo Addons Directory
         uses: appleboy/ssh-action@v1.0.3
