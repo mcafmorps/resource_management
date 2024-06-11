@@ -77,7 +77,7 @@ jobs:
         run: |
           rsync -avz -e 'ssh -p ${{ secrets.SSH_PORT }}' ./$ADDON_NAME/ ${{ secrets.SSH_USERNAME }}@${{ secrets.SSH_HOST }}:/tmp/$ADDON_NAME.$UUID
 
-      - name: (Dry Run) Copy to Odoo Addons Directory
+      - name: Copy to Odoo Addons Directory
         uses: appleboy/ssh-action@v1.0.3
         env:
           ODOO1_ADDONS_DIR: ${{ vars.ODOO1_ADDONS_DIR }}
@@ -95,12 +95,12 @@ jobs:
             TMP_ADDON_DIR=/tmp/$ADDON_NAME.$UUID
             echo "TMP_ADDON_DIR=$TMP_ADDON_DIR"
 
-            if [[ "$ADDON_DIR" == "/" ]] || [[ "$ADDON_DIR" == *"/.."* ]]; then
+            if [[ -z "${ADDON_DIR}" ]] || [[ "$ADDON_DIR" == "/" ]] || [[ "$ADDON_DIR" == *"/.."* ]]; then
                 echo "Invalid path: $ADDON_DIR. Path must not be the root directory or traverse upwards."
                 exit 1
             fi
 
             chown -R ${{ secrets.SSH_USERNAME }}:${{ secrets.SSH_USERNAME }} $TMP_ADDON_DIR
 
-            echo "mkdir -p $ADDON_DIR"
-            echo "cp -r $TMP_ADDON_DIR/* $ADDON_DIR/"
+            mkdir -p $ADDON_DIR
+            cp -r $TMP_ADDON_DIR/* $ADDON_DIR/
