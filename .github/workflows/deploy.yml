@@ -91,7 +91,9 @@ jobs:
           envs: ODOO1_ADDONS_DIR,ADDON_NAME,UUID
           script: |
             ADDON_DIR=$ODOO1_ADDONS_DIR/$ADDON_NAME
+            echo "ADDON_DIR=$ADDON_DIR"
             TMP_ADDON_DIR=/tmp/$ADDON_NAME.$UUID
+            echo "TMP_ADDON_DIR=$TMP_ADDON_DIR"
 
             if [[ "$ADDON_DIR" == "/" ]] || [[ "$ADDON_DIR" == *"/.."* ]]; then
                 echo "Invalid path: $ADDON_DIR. Path must not be the root directory or traverse upwards."
