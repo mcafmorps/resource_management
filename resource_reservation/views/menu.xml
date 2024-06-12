@@ -47,7 +47,7 @@
               action="action_resource_act_window"/>
 
     <menuitem id="menu_resource_tag"
-              name="Resource Tags"
+              name="Resource Mags"
               parent="menu_resource_configurations"
               action="action_resource_tag_act_window"/>
 </odoo>
