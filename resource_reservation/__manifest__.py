@@ -1,6 +1,6 @@
 {
     'name': "Resource Reservation",
-    'summary': "Resource reservation module",
+    'summary': "Resource res module",
     'version': '16.0.1.3.3',
     'website': "https://mcaf.nb.ca/en/",
     'author': "MCAF",
