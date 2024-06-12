@@ -1,6 +1,6 @@
 {
     'name': "Resource Reservation",
-    'summary': "Resource management platform for managing resources",
+    'summary': "Resource management module",
     'version': '16.0.1.3.3',
     'website': "https://mcaf.nb.ca/en/",
     'author': "MCAF",
