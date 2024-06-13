@@ -1,7 +1,7 @@
 <?xml version="1.0" encoding="utf-8"?>
 <odoo>
     <menuitem id="menu_root"
-              name="Resource Reservation "
+              name="Resource Reservation TEST"
               sequence="1"/>
 
     <menuitem id="menu_resource_reservation"
