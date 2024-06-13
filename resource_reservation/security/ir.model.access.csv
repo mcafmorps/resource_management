@@ -1,5 +1,5 @@
 "id","name","model_id:id","group_id:id","perm_read","perm_write","perm_create","perm_unlink"
-access_resource_reservation,access_resource_reservation,model_resource_reservation,base.group_user,0,0,0,0
+access_resource_reservation,access_resource_reservation,model_resource_reservation,base.group_user,1,0,0,0
 access_resource_reservation_user,access_resource_reservation,model_resource_reservation,group_resource_reservation_user,1,1,1,0
 access_resource_reservation_approver,access_resource_reservation,model_resource_reservation,group_resource_reservation_approver,1,1,1,1
 access_resource,access_resource,model_resource,base.group_user,0,0,0,0
