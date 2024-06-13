@@ -32,7 +32,7 @@
               groups="group_resource_reservation_approver"/>
 
     <menuitem id="menu_reservation_tag"
-              name="Reservation T"
+              name="Reservation Tags"
               parent="menu_resource_configurations"
               action="action_resource_reservation_tag_act_window"/>
 
