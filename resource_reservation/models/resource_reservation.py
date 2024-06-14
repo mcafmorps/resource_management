@@ -239,7 +239,7 @@ class ResourceReservation(models.Model):
         if self.resource_type:
             resource = self.env['resource'].sudo().search(
                 [('resource_type', '=', self.resource_type.id)], limit=1)
-            self.resource_name = resource
+            # self.resource_name = resource
             return {'domain': {'resource_name': [('resource_type', '=', self.resource_type.id)]}}
         else:
             self.resource_name = False
