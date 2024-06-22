@@ -106,7 +106,7 @@ jobs:
             cp -r $TMP_ADDON_DIR/* $ADDON_DIR/
 
       - name: (Dry Run) Upgrade addon
-        uses: appleboy/ssh-action@1.0.3
+        uses: appleboy/ssh-action@v1.0.3
         env:
           ODOO1_ADDONS_DIR: ${{ vars.ODOO1_ADDONS_DIR }}
           ADDON_NAME: ${{ vars.ADDON_NAME }}
