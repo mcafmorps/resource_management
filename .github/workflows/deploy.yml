@@ -104,3 +104,23 @@ jobs:
 
             mkdir -p $ADDON_DIR
             cp -r $TMP_ADDON_DIR/* $ADDON_DIR/
+
+      - name: (Dry Run) Upgrade addon
+        uses: appleboy/ssh-action@1.0.3
+        env:
+          ODOO1_ADDONS_DIR: ${{ vars.ODOO1_ADDONS_DIR }}
+          ADDON_NAME: ${{ vars.ADDON_NAME }}
+          COMPOSE_PROJECT_NAME: odoo1
+          ODOO_DATA_DIR: ${{ vars.ODOO_DATA_DIR }}
+          POSTGRES_DB: ${{ secrets.POSTGRES_DB }}
+          POSTGRES_USER: ${{ secrets.POSTGRES_USER }}
+          POSTGRES_PASSWORD: ${{ secrets.POSTGRES_PASSWORD }}
+        with:
+          host: ${{ secrets.SSH_HOST }}
+          port: ${{ secrets.SSH_PORT }}
+          username: ${{ secrets.SSH_USERNAME }}
+          key: ${{ secrets.SSH_KEY }}
+          envs: ODOO1_ADDONS_DIR,ADDON_NAME,COMPOSE_PROJECT_NAME,ODOO_DATA_DIR,POSTGRES_DB,POSTGRES_USER,POSTGRES_PASSWORD
+          script: |
+            echo "docker-compose -f $ODOO_DATA_DIR/docker-compose.yml -p $COMPOSE_PROJECT_NAME exec web odoo-bin -c /etc/odoo/odoo.conf -d $POSTGRES_DB -u resource_reservation"
+            echo "docker-compose -f $ODOO_DATA_DIR/docker-compose.yml -p $COMPOSE_PROJECT_NAME restart web"
